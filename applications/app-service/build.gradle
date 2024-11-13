@@ -1,8 +1,0 @@
-dependencies {
-    implementation project(':use-cases')
-    implementation project(':postgres-repository')
-    implementation project(':web')
-
-    implementation('org.springframework.boot:spring-boot-starter')
-    implementation('org.springframework.boot:spring-boot-starter-web')
-}
