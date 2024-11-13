@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(":core-cryptography-aes")
+    implementation project(":core-security-jwt")
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.3.5'
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.3.5'
+}

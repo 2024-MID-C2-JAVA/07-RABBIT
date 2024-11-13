@@ -1,0 +1,12 @@
+dependencies {
+    implementation project(':shared-domain-use-cases')
+    implementation project(':shared-infrastructure-entry-points-din')
+    implementation project(':cuentaflex-domain-use-cases')
+    implementation project(':core-security-jwt')
+    implementation project(':core-security-authentication')
+    implementation project(":core-cryptography-aes")
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.3.5'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+}
