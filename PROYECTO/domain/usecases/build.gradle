@@ -1,0 +1,8 @@
+
+dependencies {
+    implementation project(':model')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.projectlombok:lombok:1.18.22'
+}

@@ -1,0 +1,22 @@
+rootProject.name = 'ArquitecturaHexagonal'
+
+include ':app-service'
+include ':model'
+include ':use-cases'
+include ':mysql-repository'
+include ':mongo-repository'
+include ':web'
+include ':web-jwt'
+include ':utils'
+include ':security-jwt'
+
+findProject(':app-service').projectDir = file('./applications/app-service')
+findProject(':model').projectDir = file('./domain/model')
+findProject(':use-cases').projectDir = file('./domain/usecases')
+findProject(':mysql-repository').projectDir = file('./infrastructure/driven-adapters/mysql-repository')
+findProject(':web').projectDir = file('./infrastructure/entry-points/web')
+findProject(':mongo-repository').projectDir = file('./infrastructure/driven-adapters/mongo-repository')
+findProject(':utils').projectDir = file('./infrastructure/helper/utils')
+findProject(':security-jwt').projectDir = file('./infrastructure/helper/security-jwt')
+findProject(':web-jwt').projectDir = file('./infrastructure/entry-points/web-jwt')
+
