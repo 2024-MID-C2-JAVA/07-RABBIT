@@ -104,7 +104,7 @@ public class RegisterTransactionDepositCajeroHandler {
         transactionAccountDetail.setTransaction(transaction);
         transactionAccountDetail.setTransactionRole("Supplier");
 
-        transactionAccountDetailRepository.save(transactionAccountDetail)
+        TransactionAccountDetail save = transactionAccountDetailRepository.save(transactionAccountDetail);
 
         LogEvent logEvent = new LogEvent();
         logEvent.setId(UUID.randomUUID().toString());
