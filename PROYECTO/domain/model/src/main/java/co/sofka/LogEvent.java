@@ -1,8 +1,10 @@
 package co.sofka;
 
+import java.io.Serializable;
+
 public class LogEvent {
 
-    private Object message;
+    private Transaction message;
 
     private String id;
 
@@ -13,11 +15,11 @@ public class LogEvent {
     public LogEvent() {
     }
 
-    public Object getMessage() {
+    public Transaction getMessage() {
         return message;
     }
 
-    public void setMessage(Object message) {
+    public void setMessage(Transaction message) {
         this.message = message;
     }
 

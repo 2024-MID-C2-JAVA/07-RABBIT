@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 @AllArgsConstructor
@@ -43,6 +44,7 @@ public class TransactionAccountDetailRepository implements ITransactionAccountDe
                     transactionEntity.setTypeTransaction(id.getTransaction().getTypeTransaction());
                     transactionEntity.setTimeStamp(id.getTransaction().getTimeStamp().toLocalDate());
 
+
                     transactionAccountDetailEntity.setTransaction(transactionEntity);
                     if (accountEntity.getTransactionAccountDetailEntity()==null){
                         accountEntity.setTransactionAccountDetailEntity(new ArrayList<>());
@@ -53,7 +55,12 @@ public class TransactionAccountDetailRepository implements ITransactionAccountDe
             });
         });
 
-        return null;
+        id.setId(UUID.randomUUID().toString());
+        Transaction transaction = id.getTransaction();
+        transaction.setId(UUID.randomUUID().toString());
+        id.setTransaction(transaction);
+
+        return id;
     }
 
     @Override

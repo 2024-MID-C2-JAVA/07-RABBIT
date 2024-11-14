@@ -100,11 +100,11 @@ public class RegisterTransactionDepositSucursalHandler {
         transactionAccountDetail.setTransaction(transaction);
         transactionAccountDetail.setTransactionRole("Supplier");
 
-        saveTransactionAccountDetailService.save(transactionAccountDetail);
+        TransactionAccountDetail save = saveTransactionAccountDetailService.save(transactionAccountDetail);
 
         LogEvent logEvent = new LogEvent();
         logEvent.setId(UUID.randomUUID().toString());
-        logEvent.setMessage(transaction);
+        logEvent.setMessage(save.getTransaction());
         logEvent.setFecha(LocalDate.now().toString());
         logEvent.setType(transaction.getTypeTransaction());
 

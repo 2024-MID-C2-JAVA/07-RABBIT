@@ -66,4 +66,16 @@ public class Transaction {
     public void setTimeStamp(LocalDateTime timeStamp) {
         this.timeStamp = timeStamp;
     }
+
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id='" + id + '\'' +
+                ", amountTransaction=" + amountTransaction +
+                ", transactionCost=" + transactionCost +
+                ", typeTransaction='" + typeTransaction + '\'' +
+                ", timeStamp=" + timeStamp +
+                '}';
+    }
 }

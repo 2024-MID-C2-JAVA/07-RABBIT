@@ -17,16 +17,9 @@ public class ReadLogRabbit {
    private final ILogSaveService iLogSaveService;
 
 @RabbitListener(queues = "${general.config.rabbitmq.queue}")
-public void readLog(Object message) {
+public void readLog(LogEvent message) {
     System.out.println("Mensaje recibido: " + message);
-
-
-
-    LogEvent logEvent = new LogEvent();
-    logEvent.setMessage("Prueba de mensaje");
-    logEvent.setFecha(LocalDate.now().toString());
-    logEvent.setType("TEST");
-    iLogSaveService.save(logEvent);
+    iLogSaveService.save(message);
 
 }
 
