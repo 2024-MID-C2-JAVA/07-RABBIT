@@ -1,7 +1,6 @@
 package co.sofka;
 
 
-import co.sofka.config.JpaBanktransactionRepository;
 import co.sofka.data.entity.CustomerEntity;
 import co.sofka.data.entity.TransactionAccountDetailEntity;
 import co.sofka.data.entity.TransactionEntity;
@@ -22,7 +21,6 @@ public class TransactionAccountDetailRepository implements ITransactionAccountDe
 
     private static final Logger logger = LoggerFactory.getLogger(TransactionAccountDetailRepository.class);
 
-//    private final JpaBanktransactionRepository repository;
 
     private final MongoTemplate mongoTemplate;
 
