@@ -1,6 +1,7 @@
 package co.sofka.command.create;
 
 import co.sofka.Account;
+import co.sofka.LogEvent;
 import co.sofka.Transaction;
 import co.sofka.TransactionAccountDetail;
 import co.sofka.command.dto.BankTransactionBuys;
@@ -15,6 +16,7 @@ import co.sofka.middleware.AccountNotHaveBalanceException;
 import co.sofka.middleware.ErrorDecryptingDataException;
 import co.sofka.usecase.appBank.IGetAccountByNumberService;
 import co.sofka.usecase.appBank.ISaveAccountService;
+import co.sofka.usecase.appBank.ISaveLogTransactionDetailService;
 import co.sofka.usecase.appBank.ISaveTransactionService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -22,7 +24,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Component
 @AllArgsConstructor
@@ -41,6 +45,8 @@ public class RegisterTransactionCompraHandler {
     private final TokenByDinHeaders utils;
 
     private EncryptionAndDescryption encryptionAndDescryption;
+
+    private final ISaveLogTransactionDetailService saveLogTransactionDetailService;
 
 
 
@@ -105,9 +111,16 @@ public class RegisterTransactionCompraHandler {
         transactionAccountDetail.setTransaction(transaction);
         transactionAccountDetail.setTransactionRole("Supplier");
 
-        transactionAccountDetailRepository.save(transactionAccountDetail);
+        TransactionAccountDetail save = transactionAccountDetailRepository.save(transactionAccountDetail);
 
 
+        LogEvent logEvent = new LogEvent();
+        logEvent.setId(UUID.randomUUID().toString());
+        logEvent.setMessage(save.getTransaction());
+        logEvent.setFecha(LocalDate.now().toString());
+        logEvent.setType(transaction.getTypeTransaction());
+
+        saveLogTransactionDetailService.save(logEvent);
 
         saveAccountService.save(account);
 
