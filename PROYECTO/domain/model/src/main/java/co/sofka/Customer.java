@@ -10,12 +10,24 @@ public class Customer {
 
     private String pwd;
 
+    private String rol;
+
     private List<Account> accounts;
 
-    public Customer(String id, String username, List<Account> accounts) {
+    public Customer(String id, String username, String pwd, String rol, List<Account> accounts) {
         this.id = id;
         this.username = username;
+        this.pwd = pwd;
+        this.rol = rol;
         this.accounts = accounts;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public Customer() {

@@ -1,6 +1,7 @@
 dependencies {
     implementation project(':use-cases')
-    implementation project(':mysql-repository')
+//    implementation project(':mysql-repository')
+    implementation project(':mongo-repository')
     implementation project(':web-test-rabbit')
     implementation project(':rabbit-repository')
 

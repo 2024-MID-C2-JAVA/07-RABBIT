@@ -9,25 +9,20 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-@Document(collection = "banktransaction")
-public class CustomerEntity {
+@Document(collection = "log")
+public class LogEntity {
 
     @Id
     private String id;
 
-    private String username;
+    private String message;
 
-    private String pwd;
+    private String type;
 
-    private String rol;
+    @Field(name = "fecha")
+    private LocalDate fecha;
 
-    @Field(name = "created_at")
-    private LocalDate createdAt;
 
-    @Field(name = "is_deleted")
-    private Boolean isDeleted;
-
-    private List<AccountEntity> accounts;
 
 
 

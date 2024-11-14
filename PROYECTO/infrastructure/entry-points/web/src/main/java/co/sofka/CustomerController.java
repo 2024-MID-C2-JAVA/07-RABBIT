@@ -2,10 +2,12 @@ package co.sofka;
 
 
 import co.sofka.command.create.SaveCustumerHandler;
+import co.sofka.command.dto.CurstomerByUsername;
 import co.sofka.command.dto.CustomerDTO;
 import co.sofka.command.dto.request.CustomerSaveDTO;
 import co.sofka.command.dto.request.RequestMs;
 import co.sofka.command.dto.response.ResponseMs;
+import co.sofka.command.query.CustomerByUserNameHandler;
 import co.sofka.command.query.ListAllCustomerHandler;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -33,6 +35,8 @@ public class CustomerController {
 
     private final SaveCustumerHandler saveCustumerHandler;
 
+    private final CustomerByUserNameHandler customerByUserNameHandler;
+
 
     @PostMapping("/all")
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -57,6 +61,33 @@ public class CustomerController {
     ) {
         logger.info("Buscando todos los Customer");
         return new ResponseEntity<>( handler.getAll(request), HttpStatus.OK);
+    }
+
+
+
+    @PostMapping("/findByUserName")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Request example",
+            required = true,
+            content = {
+                    @Content(
+                            schema = @Schema(implementation = RequestMs.class),
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Ejemplo JSON",
+                                            value = "{\"dinHeader\":{\"dispositivo\":\"PC\",\"idioma\":\"es\",\"uuid\":\"02e3eb27-6fb1-e542-e157-c301cc77ad2c\",\"ip\":\"localhost\",\"horaTransaccion\":\"string\",\"llaveSimetrica\":\"xaqVyedHolrJB9vW4lIj5u9nuWIiaPpAQoOK4hm2j+Q=\",\"vectorInicializacion\":\"Gz3MLPvKU1T5Pc3FfmNYPe9nuWIiaPpAQoOK4hm2j+Q=\"},\"dinBody\":{\"username\":\"pablo\"}}",
+                                            summary = "Full request")})})
+
+    @ApiResponse(
+            responseCode = "200",
+            content = @Content(schema = @Schema(implementation = ResponseMs.class)))
+    public ResponseEntity<ResponseMs<CustomerDTO>> findByUserName(
+
+            @RequestBody RequestMs<CurstomerByUsername> request
+    ) {
+        logger.info("Buscando Customer by username");
+        return new ResponseEntity<>( customerByUserNameHandler.apply(request), HttpStatus.OK);
     }
 
 

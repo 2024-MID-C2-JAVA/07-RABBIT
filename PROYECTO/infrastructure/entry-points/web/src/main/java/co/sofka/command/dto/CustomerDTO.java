@@ -9,6 +9,8 @@ public class CustomerDTO {
 
     private String username;
 
+    private String rol;
+
     private List<AccountDTO> accounts;
 
 
