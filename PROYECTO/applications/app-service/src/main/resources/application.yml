@@ -27,10 +27,12 @@ management:
 
 spring:
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: 12qwaszx
+    addresses: amqps://zefdculu:cMyg6uKFuFDir_HidLrrnhvu7YFqpliz@fish.rmq.cloudamqp.com:5671/zefdculu
+    #    port: 5672
+    #    username: zefdculu
+    #    password: cMyg6uKFuFDir_HidLrrnhvu7YFqpliz
+    ssl:
+      enabled: true
 
   data:
     mongodb:
