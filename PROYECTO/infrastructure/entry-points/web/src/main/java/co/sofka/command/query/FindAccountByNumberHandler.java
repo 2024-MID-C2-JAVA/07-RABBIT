@@ -9,7 +9,7 @@ import co.sofka.config.EncryptionAndDescryption;
 import co.sofka.config.TokenByDinHeaders;
 import co.sofka.middleware.AccountNotExistException;
 import co.sofka.middleware.ErrorDecryptingDataException;
-import co.sofka.usecase.IGetAccountByNumberService;
+import co.sofka.usecase.appBank.IGetAccountByNumberService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

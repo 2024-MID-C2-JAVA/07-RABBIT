@@ -1,12 +1,9 @@
-package co.sofka.usecase;
+package co.sofka.usecase.appBank;
 
 
 
 
-import co.sofka.Account;
 import co.sofka.Transaction;
-
-import java.util.List;
 
 @FunctionalInterface
 public interface ISaveTransactionService {

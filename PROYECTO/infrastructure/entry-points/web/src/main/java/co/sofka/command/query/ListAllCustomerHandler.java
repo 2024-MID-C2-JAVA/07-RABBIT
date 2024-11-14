@@ -9,7 +9,7 @@ import co.sofka.command.dto.response.ResponseMs;
 import co.sofka.config.EncryptionAndDescryption;
 import co.sofka.config.TokenByDinHeaders;
 import co.sofka.middleware.ErrorDecryptingDataException;
-import co.sofka.usecase.IGetAllCustomerService;
+import co.sofka.usecase.appBank.IGetAllCustomerService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

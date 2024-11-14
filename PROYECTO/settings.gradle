@@ -9,6 +9,10 @@ include ':web'
 include ':web-jwt'
 include ':utils'
 include ':security-jwt'
+include ':rabbit-repository'
+
+include ':app-service-rabbit'
+include ':web-test-rabbit'
 
 findProject(':app-service').projectDir = file('./applications/app-service')
 findProject(':model').projectDir = file('./domain/model')
@@ -19,4 +23,8 @@ findProject(':mongo-repository').projectDir = file('./infrastructure/driven-adap
 findProject(':utils').projectDir = file('./infrastructure/helper/utils')
 findProject(':security-jwt').projectDir = file('./infrastructure/helper/security-jwt')
 findProject(':web-jwt').projectDir = file('./infrastructure/entry-points/web-jwt')
+findProject(':rabbit-repository').projectDir = file('./infrastructure/driven-adapters/rabbit-repository')
+
+findProject(':app-service-rabbit').projectDir = file('./applications/app-service-rabbit')
+findProject(':web-test-rabbit').projectDir = file('./infrastructure/entry-points/web-test-rabbit')
 

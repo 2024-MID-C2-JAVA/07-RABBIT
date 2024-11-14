@@ -1,0 +1,23 @@
+dependencies {
+    implementation project(':use-cases')
+    implementation project(':model')
+
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    implementation 'org.projectlombok:lombok:1.18.30'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // a dependency on Jackson Databind
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.9'
+
+    // and a dependency on vert.x
+    implementation 'io.vertx:vertx-core:3.5.3'
+
+
+}

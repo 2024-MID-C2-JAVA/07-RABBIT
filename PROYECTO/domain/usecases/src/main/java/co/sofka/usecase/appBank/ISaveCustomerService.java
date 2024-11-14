@@ -1,9 +1,8 @@
-package co.sofka.usecase;
+package co.sofka.usecase.appBank;
 
 
 
 
-import co.sofka.Account;
 import co.sofka.Customer;
 
 @FunctionalInterface

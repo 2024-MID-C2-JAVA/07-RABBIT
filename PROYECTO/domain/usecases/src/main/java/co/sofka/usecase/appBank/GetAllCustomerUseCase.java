@@ -1,4 +1,4 @@
-package co.sofka.usecase;
+package co.sofka.usecase.appBank;
 
 
 

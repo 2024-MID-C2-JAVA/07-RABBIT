@@ -11,7 +11,7 @@ import co.sofka.middleware.CustomerNotExistException;
 import co.sofka.middleware.PasswordIncorrectoException;
 import co.sofka.security.configuration.entity.LoginPartnerRequest;
 import co.sofka.security.configuration.jwt.JwtUtils;
-import co.sofka.usecase.IGetCustomerByUserNameService;
+import co.sofka.usecase.appBank.IGetCustomerByUserNameService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

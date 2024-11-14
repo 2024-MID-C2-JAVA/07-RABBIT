@@ -7,7 +7,7 @@ import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ComponentScan(
-        basePackages = "co.sofka.usecase",
+        basePackages = "co.sofka.usecase.appBank",
         includeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "^.+UseCase$")
         }

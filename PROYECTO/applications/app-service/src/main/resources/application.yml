@@ -26,6 +26,12 @@ management:
         include: '*'
 
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: 12qwaszx
+
   data:
     mongodb:
       uri: mongodb+srv://pablosoria:4DUtXCgKbbA7X7Rk@cluster0.cdq7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
@@ -66,6 +72,10 @@ jwt:
 
 general:
   config:
+    rabbitmq:
+      exchange: "bankExchange"
+      queue: "bankQueue"
+      routingKey: "bankRoutingKey"
     constans:
       id: "bancoAPIJWT"
       authorities: "authorities"

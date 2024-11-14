@@ -1,15 +1,11 @@
-package co.sofka.usecase;
+package co.sofka.usecase.appBank;
 
 
 
-import co.sofka.Customer;
 import co.sofka.Transaction;
-import co.sofka.gateway.ICustomerRepository;
 import co.sofka.gateway.ITransactionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 public class SaveTransactionUseCase implements ISaveTransactionService {
 

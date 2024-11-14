@@ -1,11 +1,9 @@
-package co.sofka.usecase;
+package co.sofka.usecase.appBank;
 
 
 
-import co.sofka.Transaction;
 import co.sofka.TransactionAccountDetail;
 import co.sofka.gateway.ITransactionAccountDetailRepository;
-import co.sofka.gateway.ITransactionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

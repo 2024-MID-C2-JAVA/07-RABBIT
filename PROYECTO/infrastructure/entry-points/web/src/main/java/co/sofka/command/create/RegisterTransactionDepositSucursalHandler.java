@@ -1,6 +1,7 @@
 package co.sofka.command.create;
 
 import co.sofka.Account;
+import co.sofka.LogEvent;
 import co.sofka.Transaction;
 import co.sofka.TransactionAccountDetail;
 import co.sofka.command.dto.BankTransactionDepositSucursal;
@@ -12,16 +13,16 @@ import co.sofka.config.TokenByDinHeaders;
 import co.sofka.gateway.ITransactionAccountDetailRepository;
 import co.sofka.middleware.AccountNotExistException;
 import co.sofka.middleware.ErrorDecryptingDataException;
-import co.sofka.usecase.IGetAccountByNumberService;
-import co.sofka.usecase.ISaveAccountService;
-import co.sofka.usecase.ISaveTransactionService;
+import co.sofka.usecase.appBank.*;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Component
 @AllArgsConstructor
@@ -36,6 +37,10 @@ public class RegisterTransactionDepositSucursalHandler {
     private final ISaveAccountService saveAccountService;
 
     private final ITransactionAccountDetailRepository transactionAccountDetailRepository;
+
+    private final ISaveTransactionAccountDetailService saveTransactionAccountDetailService;
+
+    private final ISaveLogTransactionDetailService saveLogTransactionDetailService;
 
     private final TokenByDinHeaders utils;
 
@@ -95,8 +100,16 @@ public class RegisterTransactionDepositSucursalHandler {
         transactionAccountDetail.setTransaction(transaction);
         transactionAccountDetail.setTransactionRole("Supplier");
 
-        transactionAccountDetailRepository.save(transactionAccountDetail);
+        saveTransactionAccountDetailService.save(transactionAccountDetail);
 
+        LogEvent logEvent = new LogEvent();
+        logEvent.setId(UUID.randomUUID().toString());
+        logEvent.setMessage(transaction);
+        logEvent.setFecha(LocalDate.now().toString());
+        logEvent.setType(transaction.getTypeTransaction());
+
+        saveLogTransactionDetailService.save(logEvent);
+        //transactionAccountDetailRepository.save(transactionAccountDetail);
 
         account.setAmount(account.getAmount().add(request.getDinBody().getAmount()));
         saveAccountService.save(account);
