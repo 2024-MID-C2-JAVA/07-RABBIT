@@ -1,7 +1,9 @@
 dependencies {
     implementation project(':use-cases')
     implementation project(':model')
+    implementation project(':jwt')
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.postgresql:postgresql'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.18.1'
 }

@@ -1,0 +1,8 @@
+dependencies {
+    implementation project(':use-cases')
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '3.3.5'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.5'
+
+}

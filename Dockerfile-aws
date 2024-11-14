@@ -1,0 +1,47 @@
+# Usa la imagen base de Java
+FROM eclipse-temurin:21-jdk
+
+# Instala PostgreSQL y otras dependencias necesarias
+RUN apt-get update && \
+    apt-get install -y postgresql postgresql-contrib && \
+    apt-get clean
+
+# Configura el directorio de trabajo
+WORKDIR /app
+
+# Copia el archivo JAR de la aplicación
+COPY applications/app-service/build/libs/app-service.jar app.jar
+
+# Exponer el puerto de la aplicación
+EXPOSE 8080
+
+# Configura las variables de entorno necesarias para la aplicación
+ENV SPRING_APPLICATION_NAME=BANK_MANAGEMENT
+ENV SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/sofka
+ENV SPRING_JPA_HIBERNATE_DEFAULT_SCHEMA=sofka
+ENV SPRING_DATASOURCE_USERNAME=app_sofka
+ENV SPRING_DATASOURCE_PASSWORD=sofka
+ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
+ENV ENCRYPTION_KEY=U7dX2WIVwDNiCxqwR+P6AKxAolpkcVoYFDNyJ7X1M7k=
+ENV SPRING_DATA_MONGODB_URI=mongodb+srv://sofka:sofka@cluster0.mrhbt.mongodb.net/sofka?retryWrites=true&w=majority&appName=Cluster0
+ENV JWT_SECRET=f64d982bde04097fade50a579518a2685dcc41f1fbe9fe4fcea6437c3123d6f7e367f7308c8a32e943a7e1503b963decb3990f998f263586feeb0301e864a14d73257e35aba2414b64ffcfb48e6c2580d74846daca8381188a37cf5ee1967436d2f44ca94ce5e902ceb06ab6370a5d512753ac9188ade14f0fbac0a4888d12a9ed0d6e1364a48165d8f888d576d4d68632185f2ee3739492a81b128205ec5c0a424410cdc677f91745bbedb58172f9ae928138905638c0ab3fea669c489d535c4c033d5af7231d6ba2bc1831d6115285b9cfc6023a9504f780503a174d701a23bf6dc1781cfd8e416014543c9f666b77f7d23e8a8c79dab1fe189142e734048b
+
+# Configura PostgreSQL para crear la base de datos, usuario y permisos
+RUN service postgresql start && \
+    su - postgres -c "psql -c \"CREATE DATABASE sofka;\"" && \
+    su - postgres -c "psql -c \"CREATE USER app_sofka WITH PASSWORD 'sofka';\"" && \
+    su - postgres -c "psql -c \"GRANT CONNECT ON DATABASE sofka TO app_sofka;\"" && \
+    su - postgres -c "psql -d sofka -c \"CREATE SCHEMA sofka AUTHORIZATION app_sofka;\"" && \
+    su - postgres -c "psql -d sofka -c \"GRANT USAGE ON SCHEMA sofka TO app_sofka;\"" && \
+    su - postgres -c "psql -d sofka -c \"GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA sofka TO app_sofka;\"" && \
+    su - postgres -c "psql -d sofka -c \"ALTER DEFAULT PRIVILEGES IN SCHEMA sofka GRANT ALL ON TABLES TO app_sofka;\"" && \
+    su - postgres -c "psql -d sofka -c \"GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA sofka TO app_sofka;\"" && \
+    su - postgres -c "psql -d sofka -c \"ALTER DEFAULT PRIVILEGES IN SCHEMA sofka GRANT ALL ON SEQUENCES TO app_sofka;\""
+
+# Asegura que PostgreSQL esté corriendo y luego inicia la aplicación
+CMD service postgresql start && \
+    until pg_isready -h localhost -p 5432 -U postgres; do \
+        echo "Esperando a PostgreSQL..."; \
+        sleep 2; \
+    done && \
+    java -jar app.jar

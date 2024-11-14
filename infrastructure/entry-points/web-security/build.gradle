@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(':use-cases')
+    implementation project(':model')
+    implementation project(':din')
+    implementation project(':jwt')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.security:spring-security-core'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+}

@@ -1,0 +1,10 @@
+dependencies {
+    implementation project(':use-cases')
+    implementation project(':model')
+    implementation project(':aes-encryption')
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-amqp
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-amqp', version: '3.3.5'
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.18.1'
+
+}

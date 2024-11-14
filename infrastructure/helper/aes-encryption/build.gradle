@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':use-cases')
+
+    implementation 'org.springframework:spring-context'
+}

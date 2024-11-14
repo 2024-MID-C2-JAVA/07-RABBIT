@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':use-cases')
+    implementation project(':aes-encryption')
+    implementation project(':rabbit-listener')
+    implementation project(':mongo-rabbit-repository')
+
+
+    implementation('org.springframework.boot:spring-boot-starter')
+}
