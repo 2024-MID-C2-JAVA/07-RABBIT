@@ -1,10 +1,10 @@
 package co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.endpoints.deposit.externalaccount;
 
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.FeesValues;
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.TransactionErrors;
-import co.com.sofka.cuentaflex.domain.usecases.deposit.externalaccount.DepositToExternalAccountRequest;
-import co.com.sofka.cuentaflex.domain.usecases.deposit.externalaccount.DepositToExternalAccountResponse;
-import co.com.sofka.cuentaflex.domain.usecases.deposit.externalaccount.DepositToExternalAccountUseCase;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.FeesValues;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.TransactionErrors;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.deposit.externalaccount.DepositToExternalAccountRequest;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.deposit.externalaccount.DepositToExternalAccountResponse;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.deposit.externalaccount.DepositToExternalAccountUseCase;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.constants.AccountEndpointsConstants;
 import co.com.sofka.shared.domain.usecases.ResultWith;
 import co.com.sofka.shared.infrastructure.entrypoints.din.DinErrorMapper;

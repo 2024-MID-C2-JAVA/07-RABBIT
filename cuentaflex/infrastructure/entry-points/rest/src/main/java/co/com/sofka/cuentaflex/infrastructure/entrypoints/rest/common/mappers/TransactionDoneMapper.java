@@ -1,6 +1,6 @@
 package co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.mappers;
 
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.TransactionDoneResponse;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.TransactionDoneResponse;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.dtos.TransactionDoneDto;
 import co.com.sofka.shared.infrastructure.entrypoints.din.DinHeader;
 import co.com.sofka.shared.infrastructure.entrypoints.din.DinResponse;

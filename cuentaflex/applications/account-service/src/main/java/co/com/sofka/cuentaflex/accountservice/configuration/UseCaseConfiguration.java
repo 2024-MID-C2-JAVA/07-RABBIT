@@ -7,7 +7,7 @@ import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ComponentScan(
-        basePackages = "co.com.sofka.cuentaflex.domain.usecases",
+        basePackages = "co.com.sofka.cuentaflex.domain.usecases.accountservice",
         includeFilters = {
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = UseCase.class)
         }

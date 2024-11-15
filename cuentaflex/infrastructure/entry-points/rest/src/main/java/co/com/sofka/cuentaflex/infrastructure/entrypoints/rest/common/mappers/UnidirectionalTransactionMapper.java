@@ -1,6 +1,6 @@
 package co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.mappers;
 
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.UnidirectionalTransactionRequest;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.UnidirectionalTransactionRequest;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.dtos.UnidirectionalTransactionDto;
 import co.com.sofka.shared.infrastructure.entrypoints.din.DinRequest;
 

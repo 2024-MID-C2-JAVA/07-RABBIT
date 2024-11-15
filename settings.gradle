@@ -36,3 +36,18 @@ findProject(':core-security-authentication').projectDir = file("./core/security/
 
 include ':core-security-jwt'
 findProject(':core-security-jwt').projectDir = file("./core/security/jwt")
+
+include ':cuentaflex-applications-log-service'
+findProject(':cuentaflex-applications-log-service').projectDir = file("./cuentaflex/applications/log-service")
+
+include ':cuentaflex-infrastructure-driven-adapters-info-bus'
+findProject(':cuentaflex-infrastructure-driven-adapters-info-bus').projectDir = file("./cuentaflex/infrastructure/driven-adapters/info-bus")
+
+include ':cuentaflex-infrastructure-entry-points-mq-listener'
+findProject(':cuentaflex-infrastructure-entry-points-mq-listener').projectDir = file("./cuentaflex/infrastructure/entry-points/mq-listener")
+
+include ':cuentaflex-infrastructure-driven-adapters-mongo-log-repository'
+findProject(':cuentaflex-infrastructure-driven-adapters-mongo-log-repository').projectDir = file("./cuentaflex/infrastructure/driven-adapters/mongo-log-repository")
+
+include ':cuentaflex-infrastructure-driven-adapters-postgres-log-repository'
+findProject(':cuentaflex-infrastructure-driven-adapters-postgres-log-repository').projectDir = file("./cuentaflex/infrastructure/driven-adapters/postgres-log-repository")

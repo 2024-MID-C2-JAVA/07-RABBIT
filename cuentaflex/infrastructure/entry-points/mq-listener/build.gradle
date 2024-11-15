@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':cuentaflex-domain-driven-ports')
+    implementation project(':cuentaflex-domain-use-cases')
+    implementation project(':shared-domain-use-cases')
+    implementation project(":core-cryptography-aes")
+
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.1'
+}

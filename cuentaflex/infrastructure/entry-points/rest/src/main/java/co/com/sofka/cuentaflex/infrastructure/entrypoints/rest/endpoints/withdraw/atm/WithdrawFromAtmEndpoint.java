@@ -1,9 +1,9 @@
 package co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.endpoints.withdraw.atm;
 
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.TransactionDoneResponse;
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.TransactionErrors;
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.UnidirectionalTransactionRequest;
-import co.com.sofka.cuentaflex.domain.usecases.withdraw.atm.WithdrawFromAtmUseCase;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.TransactionDoneResponse;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.TransactionErrors;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.UnidirectionalTransactionRequest;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.atm.WithdrawFromAtmUseCase;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.dtos.TransactionDoneDto;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.dtos.UnidirectionalTransactionDto;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.mappers.TransactionDoneMapper;

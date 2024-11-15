@@ -1,9 +1,9 @@
 package co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.endpoints.purchase.online;
 
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.TransactionDoneResponse;
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.TransactionErrors;
-import co.com.sofka.cuentaflex.domain.usecases.common.transactions.UnidirectionalTransactionRequest;
-import co.com.sofka.cuentaflex.domain.usecases.purchase.online.PurchaseOnlineUseCase;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.TransactionDoneResponse;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.TransactionErrors;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.transactions.UnidirectionalTransactionRequest;
+import co.com.sofka.cuentaflex.domain.usecases.accountservice.purchase.online.PurchaseOnlineUseCase;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.dtos.TransactionDoneDto;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.dtos.UnidirectionalTransactionDto;
 import co.com.sofka.cuentaflex.infrastructure.entrypoints.rest.common.mappers.TransactionDoneMapper;
