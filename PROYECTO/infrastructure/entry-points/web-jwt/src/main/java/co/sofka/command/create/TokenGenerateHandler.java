@@ -55,8 +55,8 @@ public class TokenGenerateHandler {
 
         LoginPartnerRequest loginPartnerRequest = new LoginPartnerRequest();
         loginPartnerRequest.setUsername(request.getDinBody().getUsername());
-        loginPartnerRequest.setRol("ADMIN");
-        loginPartnerRequest.setPermisos(List.of("WRITE","READ"));
+        loginPartnerRequest.setRol(byUsername.getRol());
+        loginPartnerRequest.setPermisos(List.of("WRITE","READ",byUsername.getRol()));
         String tokenString = jwtUtils.generateJwtToken(loginPartnerRequest);
 
         TokenResponse tokenResponse = new TokenResponse();

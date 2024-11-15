@@ -108,12 +108,15 @@ public class RegisterTransactionDepositCajeroHandler {
 
         LogEvent logEvent = new LogEvent();
         logEvent.setId(UUID.randomUUID().toString());
-        logEvent.setMessage(save.getTransaction());
+        logEvent.setMessage(save.getTransaction().toString());
         logEvent.setFecha(LocalDate.now().toString());
         logEvent.setType(transaction.getTypeTransaction());
 
-        saveLogTransactionDetailService.save(logEvent);
-
+        try {
+            saveLogTransactionDetailService.save(logEvent);
+        } catch (Exception e) {
+            logger.error("Error al guardar el log {}",e.getMessage());
+        }
 
 
         account.setAmount(account.getAmount().add(request.getDinBody().getAmount().subtract(new BigDecimal(2))));

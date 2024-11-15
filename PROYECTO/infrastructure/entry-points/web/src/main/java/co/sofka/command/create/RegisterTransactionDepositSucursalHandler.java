@@ -104,12 +104,15 @@ public class RegisterTransactionDepositSucursalHandler {
 
         LogEvent logEvent = new LogEvent();
         logEvent.setId(UUID.randomUUID().toString());
-        logEvent.setMessage(save.getTransaction());
+        logEvent.setMessage(save.getTransaction().toString());
         logEvent.setFecha(LocalDate.now().toString());
         logEvent.setType(transaction.getTypeTransaction());
 
-        saveLogTransactionDetailService.save(logEvent);
-        //transactionAccountDetailRepository.save(transactionAccountDetail);
+        try {
+            saveLogTransactionDetailService.save(logEvent);
+        } catch (Exception e) {
+            logger.error("Error al guardar el log {}",e.getMessage());
+        }        //transactionAccountDetailRepository.save(transactionAccountDetail);
 
         account.setAmount(account.getAmount().add(request.getDinBody().getAmount()));
         saveAccountService.save(account);

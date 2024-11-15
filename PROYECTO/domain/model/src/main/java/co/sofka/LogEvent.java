@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class LogEvent {
 
-    private Transaction message;
+    private String message;
 
     private String id;
 
@@ -15,11 +15,11 @@ public class LogEvent {
     public LogEvent() {
     }
 
-    public Transaction getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Transaction message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
