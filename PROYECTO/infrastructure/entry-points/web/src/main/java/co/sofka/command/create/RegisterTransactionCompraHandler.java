@@ -86,11 +86,14 @@ public class RegisterTransactionCompraHandler {
             throw new AccountNotExistException("La cuenta no existe", request.getDinHeader(),1002);
         }
 
+        BigDecimal costo= new BigDecimal(0);
+
         if (request.getDinBody().getTypeBuys()==1){
             if (account.getAmount().subtract(request.getDinBody().getAmount().add(new BigDecimal(5))).intValue() < 0) {
                 throw new AccountNotHaveBalanceException("No tiene saldo suficiente.", request.getDinHeader(),1003);
             }
             account.setAmount(account.getAmount().subtract(request.getDinBody().getAmount().add(new BigDecimal(5))));
+            costo = new BigDecimal(5);
         }else{
             account.setAmount(account.getAmount().subtract(request.getDinBody().getAmount()));
         }
@@ -98,7 +101,7 @@ public class RegisterTransactionCompraHandler {
 
 
         Transaction transaction = new Transaction();
-        transaction.setTransactionCost(new BigDecimal(1));
+        transaction.setTransactionCost(costo);
         transaction.setAmountTransaction(request.getDinBody().getAmount());
         transaction.setTimeStamp(LocalDateTime.now());
         transaction.setTypeTransaction("Compra");
