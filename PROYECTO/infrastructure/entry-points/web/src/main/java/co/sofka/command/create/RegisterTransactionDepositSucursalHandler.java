@@ -104,7 +104,7 @@ public class RegisterTransactionDepositSucursalHandler {
 
         LogEvent logEvent = new LogEvent();
         logEvent.setId(UUID.randomUUID().toString());
-        logEvent.setMessage(save.getTransaction().toString());
+        logEvent.setMessage(utils.encode(save.getTransaction().toString()));
         logEvent.setFecha(LocalDate.now().toString());
         logEvent.setType(transaction.getTypeTransaction());
 

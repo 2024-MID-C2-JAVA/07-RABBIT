@@ -110,7 +110,7 @@ public class RegisterTransactionDepositCajeroHandler {
 
         LogEvent logEvent = new LogEvent();
         logEvent.setId(UUID.randomUUID().toString());
-        logEvent.setMessage(datail.getTransaction().toString());
+        logEvent.setMessage(utils.encode(datail.getTransaction().toString()));
         logEvent.setFecha(LocalDate.now().toString());
         logEvent.setType(transaction.getTypeTransaction());
 

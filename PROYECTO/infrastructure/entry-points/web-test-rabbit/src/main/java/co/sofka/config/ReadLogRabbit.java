@@ -16,11 +16,16 @@ public class ReadLogRabbit {
 
    private final ILogSaveService iLogSaveService;
 
+    private final TokenByDinHeaders utils;
+
    //private final I jpaLogRepository;
 
 @RabbitListener(queues = "${general.config.rabbitmq.queue}")
 public void readLog(LogEvent message) {
     System.out.println("Mensaje recibido: " + message);
+
+    message.setMessage(utils.decode(message.getMessage()));
+
     iLogSaveService.save(message);
 
 }
