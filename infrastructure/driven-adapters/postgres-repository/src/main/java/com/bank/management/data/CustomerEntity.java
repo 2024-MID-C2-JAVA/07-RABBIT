@@ -16,6 +16,8 @@ public class CustomerEntity {
     private Long id;
 
     private String username;
+    private String name;
+    private String lastname;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
@@ -36,6 +38,22 @@ public class CustomerEntity {
 
     // Getters y Setters
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
     public Long getId() {
         return id;

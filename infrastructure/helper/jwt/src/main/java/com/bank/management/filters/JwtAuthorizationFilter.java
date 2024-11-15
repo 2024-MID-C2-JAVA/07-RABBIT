@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -44,10 +46,16 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             Object rolesClaim = jwtUtil.extractAllClaims(jwt).get("roles");
-            List<GrantedAuthority> authorities = rolesClaim != null
-                    ? AuthorityUtils.commaSeparatedStringToAuthorityList(rolesClaim.toString())
-                    : AuthorityUtils.NO_AUTHORITIES;
 
+            List<GrantedAuthority> authorities;
+            if (rolesClaim instanceof List<?>) {
+                authorities = ((List<?>) rolesClaim).stream()
+                        .filter(role -> role instanceof String)
+                        .map(role -> new SimpleGrantedAuthority((String) role))
+                        .collect(Collectors.toList());
+            } else {
+                authorities = AuthorityUtils.NO_AUTHORITIES;
+            }
             UserDetails userDetails = User.withUsername(username)
                     .password("")
                     .authorities(authorities)

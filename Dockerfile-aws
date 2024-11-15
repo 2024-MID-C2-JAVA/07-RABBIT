@@ -10,10 +10,11 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copia el archivo JAR de la aplicación
-COPY applications/app-service/build/libs/app-service.jar app.jar
+COPY applications/app-service/build/libs/app-service.jar app-service.jar
+COPY applications/log-service/build/libs/log-service.jar log-service.jar
 
 # Exponer el puerto de la aplicación
-EXPOSE 8080
+EXPOSE 8080 8081
 
 # Configura las variables de entorno necesarias para la aplicación
 ENV SPRING_APPLICATION_NAME=BANK_MANAGEMENT
@@ -42,6 +43,7 @@ RUN service postgresql start && \
 CMD service postgresql start && \
     until pg_isready -h localhost -p 5432 -U postgres; do \
         echo "Esperando a PostgreSQL..."; \
-        sleep 2; \
+        sleep 10; \
     done && \
-    java -jar app.jar
+    java -jar app-service.jar & \
+    java -jar log-service.jar

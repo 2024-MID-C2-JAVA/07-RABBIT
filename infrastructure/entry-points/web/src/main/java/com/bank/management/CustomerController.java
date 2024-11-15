@@ -4,11 +4,9 @@ import com.bank.management.data.*;
 import com.bank.management.enums.DinErrorCode;
 import com.bank.management.exception.CustomerAlreadyExistsException;
 import com.bank.management.exception.CustomerNotFoundException;
-import com.bank.management.usecase.appservice.CreateCustomerUseCase;
-import com.bank.management.usecase.appservice.DeleteCustomerUseCase;
-import com.bank.management.usecase.appservice.GetAllCustomersUseCase;
-import com.bank.management.usecase.appservice.GetCustomerByIdUseCase;
+import com.bank.management.usecase.appservice.*;
 import jakarta.validation.Valid;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +39,8 @@ public class CustomerController {
 
             Customer customerDomain = new Customer.Builder()
                     .username(request.getDinBody().getUsername())
+                    .lastname(request.getDinBody().getLastname())
+                    .name(request.getDinBody().getName())
                     .build();
 
             Optional<Customer> customerCreated = createCustomerUseCase.apply(customerDomain);
@@ -150,6 +150,8 @@ public class CustomerController {
             List<AllCustomerDTO> AllcustomerDTOs = customers.stream()
                     .map(customer -> new AllCustomerDTO.Builder()
                             .setUsername(customer.getUsername())
+                            .setLastname(customer.getLastname())
+                            .setName(customer.getName())
                             .setId(customer.getId())
                             .build())
                     .toList();
@@ -190,6 +192,8 @@ public class CustomerController {
 
             CustomerDTO customerDTO = new CustomerDTO.Builder()
                     .setUsername(customer.getUsername())
+                    .setLastname(customer.getLastname())
+                    .setName(customer.getName())
                     .build();
 
             return ResponseBuilder.buildResponse(
@@ -225,6 +229,18 @@ public class CustomerController {
                     e.getMessage()
             );
         }
+    }
+
+    @EventListener
+    public void handleUserCreatedEvent(UserEventCreate event) {
+
+        Customer customerDomain = new Customer.Builder()
+                .username(event.getUsername())
+                .lastname(event.getLastname())
+                .name(event.getName())
+                .build();
+
+        createCustomerUseCase.apply(customerDomain);
     }
 
 }

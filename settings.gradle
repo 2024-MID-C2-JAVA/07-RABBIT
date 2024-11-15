@@ -12,6 +12,7 @@ include ':rabbitmq-messages'
 include ':aes-encryption'
 include ':web'
 include ':web-security'
+include ':log-web-controller'
 include ':rabbit-listener'
 include ':din'
 include ':jwt'
@@ -28,6 +29,7 @@ findProject(':rabbitmq-messages').projectDir = file('./infrastructure/driven-ada
 findProject(':aes-encryption').projectDir = file('./infrastructure/helper/aes-encryption')
 findProject(':web').projectDir = file('./infrastructure/entry-points/web')
 findProject(':web-security').projectDir = file('./infrastructure/entry-points/web-security')
+findProject(':log-web-controller').projectDir = file('./infrastructure/entry-points/log-web-controller')
 findProject(':rabbit-listener').projectDir = file('./infrastructure/entry-points/rabbit-listener')
 findProject(':din').projectDir = file('./infrastructure/entry-points/din')
 findProject(':jwt').projectDir = file('./infrastructure/helper/jwt')

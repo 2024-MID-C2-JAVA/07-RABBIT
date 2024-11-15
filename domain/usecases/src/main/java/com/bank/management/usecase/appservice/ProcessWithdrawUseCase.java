@@ -30,17 +30,26 @@ public class ProcessWithdrawUseCase {
 
     public Optional<Account> apply(Withdrawal withdrawal) {
         if (withdrawal.getAmount() == null || withdrawal.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidAmountException();
+            InvalidAmountException exception = new InvalidAmountException();
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         Optional<Account> accountOptional = bankAccountRepository.findByNumber(withdrawal.getAccountNumber());
         Optional<Customer> customerOptional = customerRepository.findByUsername(withdrawal.getUsername());
         if (accountOptional.isEmpty()) {
-            throw new BankAccountNotFoundException();
+            BankAccountNotFoundException exception = new BankAccountNotFoundException();
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         if (customerOptional.isEmpty()) {
-            throw new CustomerNotFoundException(withdrawal.getUsername().toString());
+            CustomerNotFoundException exception = new CustomerNotFoundException(withdrawal.getUsername());
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         BigDecimal transactionFee = new BigDecimal("1.00");
@@ -50,7 +59,10 @@ public class ProcessWithdrawUseCase {
         Customer customer = customerOptional.get();
 
         if (account.getAmount().compareTo(totalCharge) < 0) {
-            throw new InsufficientFundsException();
+            InsufficientFundsException exception = new InsufficientFundsException();
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         account.adjustBalance(totalCharge.negate());
@@ -62,7 +74,7 @@ public class ProcessWithdrawUseCase {
 
         Optional<Transaction> trxSaved = transactionRepository.save(trx, account, customer ,"RECEIVED");
         Optional<Account> accountSaved = bankAccountRepository.save(account);
-        trxSaved.ifPresent(messageSenderGateway::sendMessage);
+        trxSaved.ifPresent(messageSenderGateway::sendTransactionSuccess);
         return accountSaved;
     }
 

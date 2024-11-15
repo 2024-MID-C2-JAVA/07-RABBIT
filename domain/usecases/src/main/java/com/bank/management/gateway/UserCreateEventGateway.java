@@ -1,7 +1,8 @@
 package com.bank.management.gateway;
 
 import com.bank.management.User;
+import com.bank.management.usecase.appservice.UserEventCreate;
 
 public interface UserCreateEventGateway {
-    void publish(User event);
+    void publish(UserEventCreate event);
 }

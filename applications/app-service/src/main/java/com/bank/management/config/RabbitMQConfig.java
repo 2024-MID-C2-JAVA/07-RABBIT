@@ -15,16 +15,26 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.exchange.name}")
     private String exchangeName;
 
-    @Value("${rabbitmq.queue.name}")
-    private String queueName;
+    @Value("${rabbitmq.queue.name.sucess}")
+    private String queueNameSuccess;
 
-    @Value("${rabbitmq.routing.key}")
-    private String routingKey;
+    @Value("${rabbitmq.queue.name.error}")
+    private String queueNameError;
+
+    @Value("${rabbitmq.routing.key.sucess}")
+    private String routingKeySuccess;
+
+    @Value("${rabbitmq.routing.key.error}")
+    private String routingKeyError;
 
     @Bean
-    public Queue queue() {
-        return new Queue(queueName, true) {
-        };
+    public Queue successQueue() {
+        return new Queue(queueNameSuccess, true);
+    }
+
+    @Bean
+    public Queue errorQueue() {
+        return new Queue(queueNameError, true);
     }
 
     @Bean
@@ -33,7 +43,12 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
+    public Binding successBinding(Queue successQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(successQueue).to(exchange).with(routingKeySuccess);
+    }
+
+    @Bean
+    public Binding errorBinding(Queue errorQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(errorQueue).to(exchange).with(routingKeyError);
     }
 }

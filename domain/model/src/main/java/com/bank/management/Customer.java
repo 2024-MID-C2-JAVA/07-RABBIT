@@ -7,6 +7,8 @@ public class Customer {
 
     private String id;
     private String username;
+    private String name;
+    private String lastname;
     private List<Account> accounts;
     private boolean isDeleted;
     private Date createdAt;
@@ -15,11 +17,29 @@ public class Customer {
         this.id = builder.id;
         this.username = builder.username;
         this.accounts = builder.accounts;
+        this.name = builder.name;
+        this.lastname = builder.lastname;
         this.isDeleted = builder.isDeleted;
         this.createdAt = builder.createdAt != null ? builder.createdAt : new Date();
     }
 
     // Getters y Setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
     public String getId() {
         return id;
     }
@@ -63,6 +83,8 @@ public class Customer {
     public static class Builder {
         private String id;
         private String username;
+        private String name;
+        private String lastname;
         private List<Account> accounts;
         private Date createdAt;
         private boolean isDeleted;
@@ -81,6 +103,14 @@ public class Customer {
 
         public Builder username(String username) {
             this.username = username;
+            return this;
+        }
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        public Builder lastname(String lastname) {
+            this.lastname = lastname;
             return this;
         }
 

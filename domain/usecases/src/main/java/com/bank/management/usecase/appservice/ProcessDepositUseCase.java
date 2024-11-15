@@ -30,23 +30,35 @@ public class ProcessDepositUseCase {
 
     public Optional<Account> apply(Deposit deposit) {
         if (deposit.getAmount() == null || deposit.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new InvalidAmountException();
+            InvalidAmountException exception = new InvalidAmountException();
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         Optional<Account> accountOptional = bankAccountRepository.findByNumber(deposit.getAccountNumber());
         if (accountOptional.isEmpty()) {
-            throw new BankAccountNotFoundException();
+            BankAccountNotFoundException exception = new BankAccountNotFoundException();
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
         Optional<Customer> customerOptional = customerRepository.findByUsername(deposit.getusername());
         if (customerOptional.isEmpty()) {
-            throw new CustomerNotFoundException(deposit.getusername());
+            CustomerNotFoundException exception = new CustomerNotFoundException(deposit.getusername());
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         DepositType depositType;
         try {
             depositType = DepositType.valueOf(deposit.getType().toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new InvalidDepositTypeException(deposit.getType().toUpperCase());
+            InvalidDepositTypeException exception = new InvalidDepositTypeException(deposit.getusername());
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         BigDecimal fee = calculateDepositFee(depositType);
@@ -62,7 +74,7 @@ public class ProcessDepositUseCase {
 
         Optional<Transaction> trxSaved = transactionRepository.save(trx, account, customerOptional.get(), "RECEIVED");
         Optional<Account> accountSaved = bankAccountRepository.save(account);
-        trxSaved.ifPresent(messageSenderGateway::sendMessage);
+        trxSaved.ifPresent(messageSenderGateway::sendTransactionSuccess);
         return accountSaved;
 
     }

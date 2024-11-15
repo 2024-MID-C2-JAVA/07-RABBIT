@@ -1,5 +1,8 @@
 dependencies {
+    implementation project(':use-cases')
+    implementation project(':model')
+    implementation project(':din')
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
 }

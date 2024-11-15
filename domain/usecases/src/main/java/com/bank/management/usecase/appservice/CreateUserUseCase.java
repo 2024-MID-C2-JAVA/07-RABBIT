@@ -10,11 +10,9 @@ import java.util.Optional;
 public class CreateUserUseCase {
 
     private final UserRepository userRepository;
-    private final UserCreateEventGateway userCreateEventGateway;
 
     public CreateUserUseCase(UserRepository userRepository, UserCreateEventGateway userCreateEventGateway) {
         this.userRepository = userRepository;
-        this.userCreateEventGateway = userCreateEventGateway;
     }
 
     public User apply(User user) {
@@ -22,8 +20,7 @@ public class CreateUserUseCase {
         if (userFound.isPresent()) {
             throw new CustomerAlreadyExistsException(user.getUsername());
         }
-        User userCreated = new User(user.getUsername(), user.getPassword());
-        userCreateEventGateway.publish(userCreated);
+        User userCreated = new User(user.getUsername(), user.getPassword(), user.getRoles());
         return userRepository.saveUser(userCreated);
     }
 }

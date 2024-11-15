@@ -1,9 +1,21 @@
+bootJar {
+    enabled = true
+    mainClass = 'com.bank.management.LogApplication'
+}
+
+
 dependencies {
     implementation project(':use-cases')
     implementation project(':aes-encryption')
+    implementation project(':jwt-postgres-repository')
     implementation project(':rabbit-listener')
+    implementation project(':jwt')
     implementation project(':mongo-rabbit-repository')
+    implementation project(':log-web-controller')
 
-
-    implementation('org.springframework.boot:spring-boot-starter')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.postgresql:postgresql'
 }

@@ -14,6 +14,8 @@ public class CustomerMapper {
         Customer customer = new Customer.Builder()
                 .id(entity.getId().toString())
                 .username(entity.getUsername())
+                .name(entity.getName())
+                .lastname(entity.getLastname())
                 .build();
 
         if (entity.getAccounts() != null) {
@@ -32,6 +34,8 @@ public class CustomerMapper {
         entity.setId(customer.getId() != null ? Long.valueOf(customer.getId()) : null);
         entity.setUsername(customer.getUsername());
         entity.setCreatedAt(customer.getCreatedAt());
+        entity.setName(customer.getName());
+        entity.setLastname(customer.getLastname());
 
         if (customer.getAccounts() != null) {
             entity.setAccounts(customer.getAccounts().stream()

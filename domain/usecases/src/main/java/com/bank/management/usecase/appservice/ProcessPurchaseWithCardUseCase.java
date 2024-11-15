@@ -36,20 +36,29 @@ public class ProcessPurchaseWithCardUseCase {
         Optional<Account> accountOptional = bankAccountRepository.findByNumber(purchase.getAccountNumber());
 
         if (accountOptional.isEmpty()) {
-            throw new BankAccountNotFoundException();
+            BankAccountNotFoundException exception = new BankAccountNotFoundException();
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         Optional<Customer> customerOptional = customerRepository.findByNumber(purchase.getAccountNumber());
 
         if (customerOptional.isEmpty()) {
-            throw new CustomerNotFoundException(purchase.getAccountNumber());
+            CustomerNotFoundException exception = new CustomerNotFoundException(purchase.getAccountNumber());
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         PurchaseType purchaseType;
         try {
             purchaseType = PurchaseType.valueOf(purchase.getType().toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new InvalidPurchaseTypeException(purchase.getType().toUpperCase());
+            InvalidPurchaseTypeException exception = new InvalidPurchaseTypeException(purchase.getType().toUpperCase());
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         BigDecimal amount = purchase.getAmount();
@@ -59,7 +68,10 @@ public class ProcessPurchaseWithCardUseCase {
         Account account = accountOptional.get();
 
         if (account.getAmount().compareTo(totalCharge) < 0) {
-            throw new InsufficientFundsException();
+            InsufficientFundsException exception = new InsufficientFundsException();
+            String errorMessage = exception.getMessage();
+            messageSenderGateway.sendMessageError(errorMessage);
+            throw exception;
         }
 
         account.adjustBalance(totalCharge.negate());
@@ -71,7 +83,7 @@ public class ProcessPurchaseWithCardUseCase {
                 .build();
         Optional<Transaction> trxSaved =  transactionRepository.save(trx, account, customerOptional.get(),"BUYER");
         Optional<Account> accountSaved = bankAccountRepository.save(account);
-        trxSaved.ifPresent(messageSenderGateway::sendMessage);
+        trxSaved.ifPresent(messageSenderGateway::sendTransactionSuccess);
         return accountSaved;
     }
 

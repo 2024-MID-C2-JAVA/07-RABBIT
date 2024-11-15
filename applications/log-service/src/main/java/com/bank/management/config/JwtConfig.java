@@ -1,6 +1,5 @@
 package com.bank.management.config;
 
-import com.bank.management.JwtUtil;
 import com.bank.management.filters.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,23 +33,7 @@ public class JwtConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/v1/login",
-                                "/auth/v1/register",
-                                "/api/v1/public/customers/delete",
-                                "/api/v1/public/customers/get",
-                                "/api/v1/public/customers",
-                                "/api/v1/public/bank-accounts",
-                                "/api/v1/public/bank-accounts/delete",
-                                "/api/v1/public/bank-accounts/get",
-                                "/api/v1/public/bank-accounts/customer/get-accounts",
-                                "/api/v1/public/encryption/encrypt",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**")
-                        .permitAll()
-                        .requestMatchers(
-                                "/api/v1/private/transactions/deposit",
-                                "/api/v1/private/transactions/purchase-card",
-                                "/api/v1/private/transactions/withdraw").hasAuthority("CUSTOMER")
+                        .requestMatchers("/api/v1/audit/logs").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

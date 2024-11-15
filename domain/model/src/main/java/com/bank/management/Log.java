@@ -1,49 +1,30 @@
 package com.bank.management;
 
+import java.util.List;
+
 public class Log {
-    private String id;
-    private String amountTransaction;
-    private String transactionCost;
-    private String typeTransaction;
-    private String timeStamp;
 
-    public String getId() {
-        return id;
+    private List<LogTransaction> logsSuccess;
+    private List<String> logsError;
+
+    public Log(List<LogTransaction> logsSuccess, List<String> logsError) {
+        this.logsSuccess = logsSuccess;
+        this.logsError = logsError;
     }
 
-    public String getTransactionCost() {
-        return transactionCost;
+    public List<LogTransaction> getLogsSuccess() {
+        return logsSuccess;
     }
 
-    public void setTransactionCost(String transactionCost) {
-        this.transactionCost = transactionCost;
+    public void setLogsSuccess(List<LogTransaction> logsSuccess) {
+        this.logsSuccess = logsSuccess;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public List<String> getLogsError() {
+        return logsError;
     }
 
-    public String getAmountTransaction() {
-        return amountTransaction;
-    }
-
-    public void setAmountTransaction(String amountTransaction) {
-        this.amountTransaction = amountTransaction;
-    }
-
-    public String getTypeTransaction() {
-        return typeTransaction;
-    }
-
-    public void setTypeTransaction(String typeTransaction) {
-        this.typeTransaction = typeTransaction;
-    }
-
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setLogsError(List<String> logsError) {
+        this.logsError = logsError;
     }
 }

@@ -1,13 +1,28 @@
 package com.bank.management.data;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class DinHeader {
 
+    @Schema(description = "Device from which the request is sent", example = "postman")
     private String device;
+
+    @Schema(description = "Language used in the request", example = "spa")
     private String language;
+
+    @Schema(description = "Unique identifier for the transaction", example = "222")
     private String uuid;
+
+    @Schema(description = "IP address of the device", example = "192.0.1.14")
     private String ip;
+
+    @Schema(description = "Transaction timestamp", example = "22/12/2")
     private String transactionTime;
+
+    @Schema(description = "Symmetric key for encryption", example = "no")
     private String symmetricKey;
+
+    @Schema(description = "Initialization vector for encryption", example = "no")
     private String initializationVector;
 
     public DinHeader() {

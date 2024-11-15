@@ -1,7 +1,7 @@
 
 bootJar {
     enabled = true
-    mainClass = 'com.bank.management.MainApplication'
+    mainClass = 'com.bank.management.AppApplication'
 }
 
 dependencies {

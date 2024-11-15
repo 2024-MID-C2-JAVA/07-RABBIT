@@ -10,11 +10,11 @@ public class UserMapper {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(user.getUsername());
         userEntity.setPassword(user.getPassword());
-        userEntity.setRoles(Collections.emptyList());
+        userEntity.setRoles(user.getRoles());
         return userEntity;
     }
 
     public static User toDomain(UserEntity userEntity) {
-        return new User(userEntity.getUsername(), userEntity.getPassword());
+        return new User(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRoles());
     }
 }

@@ -13,16 +13,16 @@ public class MessageSenderAdapter implements MessageSenderGateway {
     @Value("${rabbitmq.exchange.name}")
     private String exchangeName;
 
-    @Value("${rabbitmq.queue.name}")
-    private String queueName;
+    @Value("${rabbitmq.routing.key.sucess}")
+    private String routingKeySuccess;
 
-    @Value("${rabbitmq.routing.key}")
-    private String routingKey;
-
-    @Value("${encryption.symmetricKey}")
-    private String symmetricKey;
+    @Value("${rabbitmq.routing.key.error}")
+    private String routingKeyError;
 
     @Value("${encryption.initializationVector}")
+    private String symmetricKey;
+
+    @Value("${encryption.symmetricKey}")
     private String initializationVector;
 
 
@@ -37,9 +37,9 @@ public class MessageSenderAdapter implements MessageSenderGateway {
     }
 
     @Override
-    public void sendMessage(Transaction trx) {
+    public void sendTransactionSuccess(Transaction trx) {
         try {
-            Log encryptedTransaction = new Log();
+            LogTransaction encryptedTransaction = new LogTransaction();
 
             encryptedTransaction.setId(encryptionUseCase.encryptData(trx.getId(), symmetricKey, initializationVector));
             encryptedTransaction.setTypeTransaction(encryptionUseCase.encryptData(trx.getTypeTransaction(), symmetricKey, initializationVector));
@@ -48,9 +48,15 @@ public class MessageSenderAdapter implements MessageSenderGateway {
             encryptedTransaction.setTimeStamp(encryptionUseCase.encryptData(trx.getTimeStamp().toString(), symmetricKey, initializationVector));
 
             String jsonMessage = jsonMapper.writeValueAsString(encryptedTransaction);
-            rabbitTemplate.convertAndSend(exchangeName, routingKey, jsonMessage);
+            rabbitTemplate.convertAndSend(exchangeName, routingKeySuccess, jsonMessage);
         } catch (Exception e) {
-           //QUE DEBERIA SUCEDER ACA?
+           throw new IllegalStateException("Error sending encrypted transaction");
         }
     }
+
+    @Override
+    public void sendMessageError(String message) {
+        rabbitTemplate.convertAndSend(exchangeName, routingKeyError, message);
+    }
+
 }
