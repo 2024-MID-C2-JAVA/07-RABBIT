@@ -82,6 +82,7 @@ public class CustomerRepository implements ICustomerRepository {
             customer.setId(item.getId().toString());
             customer.setUsername(item.getUsername());
             customer.setPwd(item.getPwd());
+            customer.setRol(item.getRol());
             customer.setAccounts(new ArrayList<>());
             if(item.getAccounts() != null){
                 customer.setAccounts(item.getAccounts().stream().map(accountEntity -> {

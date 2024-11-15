@@ -25,7 +25,6 @@ public class LogController {
 
 
     @PostMapping("/all")
-
     public ResponseEntity<ResponseMs<List<LogEvent>>> getAll(
 
             @RequestBody RequestMs<Void> request
