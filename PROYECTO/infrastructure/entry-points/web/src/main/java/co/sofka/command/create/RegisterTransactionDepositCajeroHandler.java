@@ -104,11 +104,13 @@ public class RegisterTransactionDepositCajeroHandler {
         transactionAccountDetail.setTransaction(transaction);
         transactionAccountDetail.setTransactionRole("Supplier");
 
-        TransactionAccountDetail save = transactionAccountDetailRepository.save(transactionAccountDetail);
+
+        TransactionAccountDetail datail = transactionAccountDetailRepository.save(transactionAccountDetail);
+
 
         LogEvent logEvent = new LogEvent();
         logEvent.setId(UUID.randomUUID().toString());
-        logEvent.setMessage(save.getTransaction().toString());
+        logEvent.setMessage(datail.getTransaction().toString());
         logEvent.setFecha(LocalDate.now().toString());
         logEvent.setType(transaction.getTypeTransaction());
 
