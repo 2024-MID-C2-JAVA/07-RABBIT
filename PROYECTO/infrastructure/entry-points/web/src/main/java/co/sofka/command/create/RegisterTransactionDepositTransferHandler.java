@@ -101,7 +101,7 @@ public class RegisterTransactionDepositTransferHandler {
             throw new AccountNotHaveBalanceException("No tiene saldo suficiente.", request.getDinHeader(),1003);
         }
 
-        logger.info("Guardando Transaccion {}",accountReciver.getCustomer().getId());
+//        logger.info("Guardando Transaccion {}",accountReciver.getCustomer().getId());
 
         Transaction transaction = new Transaction();
         transaction.setTransactionCost(new BigDecimal(1.5));
