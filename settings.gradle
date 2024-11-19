@@ -1,14 +1,35 @@
-rootProject.name = 'ArquitecturaHexagonal'
+rootProject.name = 'architecture-hex'
 
-include ':app-service'
 include ':model'
 include ':use-cases'
+include ':app-service'
+include ':log-service'
 include ':postgres-repository'
+include ':mongodb-repository'
+include ':jwt-postgres-repository'
+include ':mongo-rabbit-repository'
+include ':rabbitmq-messages'
+include ':aes-encryption'
 include ':web'
+include ':web-security'
+include ':log-web-controller'
+include ':rabbit-listener'
+include ':din'
+include ':jwt'
 
-findProject(':app-service').projectDir = file('./applications/app-service')
 findProject(':model').projectDir = file('./domain/model')
 findProject(':use-cases').projectDir = file('./domain/usecases')
+findProject(':app-service').projectDir = file('./applications/app-service')
+findProject(':log-service').projectDir = file('./applications/log-service')
 findProject(':postgres-repository').projectDir = file('./infrastructure/driven-adapters/postgres-repository')
+findProject(':mongodb-repository').projectDir = file('./infrastructure/driven-adapters/mongodb-repository')
+findProject(':jwt-postgres-repository').projectDir = file('./infrastructure/driven-adapters/jwt-postgres-repository')
+findProject(':mongo-rabbit-repository').projectDir = file('./infrastructure/driven-adapters/mongo-rabbit-repository')
+findProject(':rabbitmq-messages').projectDir = file('./infrastructure/driven-adapters/rabbitmq-messages')
+findProject(':aes-encryption').projectDir = file('./infrastructure/helper/aes-encryption')
 findProject(':web').projectDir = file('./infrastructure/entry-points/web')
-
+findProject(':web-security').projectDir = file('./infrastructure/entry-points/web-security')
+findProject(':log-web-controller').projectDir = file('./infrastructure/entry-points/log-web-controller')
+findProject(':rabbit-listener').projectDir = file('./infrastructure/entry-points/rabbit-listener')
+findProject(':din').projectDir = file('./infrastructure/entry-points/din')
+findProject(':jwt').projectDir = file('./infrastructure/helper/jwt')
