@@ -50,6 +50,7 @@ public class AccountController {
 
             Map<String, String> responseData = new HashMap<>();
             responseData.put("accountNumber", accountCreated.getNumber());
+            responseData.put("accountId", accountCreated.getId());
 
             return ResponseBuilder.buildResponse(
                     request.getDinHeader(),
@@ -97,16 +98,18 @@ public class AccountController {
     }
 
     @PostMapping("/customer/get-accounts")
-    public ResponseEntity<ResponseMs<List<BankAccountDTO>>> getBankAccountByCustomer(@RequestBody @Valid RequestMs<RequestGetBankAccountDTO> request) {
+    public ResponseEntity<ResponseMs<List<ResponseAllBankAccountDTO>>> getBankAccountByCustomer(@RequestBody @Valid RequestMs<RequestGetBankAccountDTO> request) {
 
         try {
 
             List<Account> accounts = getAccountsByCustomerUseCase.apply(request.getDinBody().getId());
 
-            List<BankAccountDTO> accountDTOs = accounts.stream()
-                    .map(account -> new BankAccountDTO.Builder()
+            List<ResponseAllBankAccountDTO> accountDTOs = accounts.stream()
+                    .map(account -> new ResponseAllBankAccountDTO.Builder()
                             .number(account.getNumber())
                             .amount(account.getAmount())
+                            .id(account.getId())
+                            .isDeleted(account.isDeleted())
                             .build())
                     .collect(Collectors.toList());
 
@@ -129,14 +132,16 @@ public class AccountController {
     }
 
     @PostMapping("/get")
-    public ResponseEntity<ResponseMs<BankAccountDTO>> getBankAccount(@RequestBody @Valid RequestMs<RequestGetBankAccountDTO> request) {
+    public ResponseEntity<ResponseMs<ResponseBankAccountDTO>> getBankAccount(@RequestBody @Valid RequestMs<RequestGetBankAccountDTO> request) {
 
         try {
             Account account = getBankAccountUseCase.apply(request.getDinBody().getId());
 
-            BankAccountDTO accountDTO = new BankAccountDTO.Builder()
+            ResponseBankAccountDTO accountDTO = new ResponseBankAccountDTO.Builder()
                     .number(account.getNumber())
                     .amount(account.getAmount())
+                    .id(account.getId())
+                    .isDeleted(account.isDeleted())
                     .build();
 
             return ResponseBuilder.buildResponse(
@@ -181,7 +186,7 @@ public class AccountController {
         try {
             boolean isDeleted = deleteBankAccountUseCase.apply(request.getDinBody().getId());
             Map<String, String> responseData = new HashMap<>();
-            responseData.put("accountNumber", request.getDinBody().getId());
+            responseData.put("id", request.getDinBody().getId());
 
             if (isDeleted) {
                 return ResponseBuilder.buildResponse(

@@ -1,5 +1,6 @@
 package com.bank.management.usecase.appservice;
 
+import com.bank.management.UserEventCreate;
 import com.bank.management.gateway.UserCreateEventGateway;
 
 public class UserEventCreatedUseCase {

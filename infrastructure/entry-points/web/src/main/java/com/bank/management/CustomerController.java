@@ -240,7 +240,8 @@ public class CustomerController {
                 .name(event.getName())
                 .build();
 
-        createCustomerUseCase.apply(customerDomain);
+        Optional<Customer> customer = createCustomerUseCase.apply(customerDomain);
+        customer.ifPresent(value -> event.getCustomerIdFuture().complete(value.getId()));
     }
 
 }

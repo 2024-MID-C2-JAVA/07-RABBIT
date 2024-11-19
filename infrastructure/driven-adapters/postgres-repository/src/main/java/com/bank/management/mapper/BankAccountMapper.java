@@ -16,6 +16,7 @@ public class BankAccountMapper {
         account.setNumber(entity.getNumber());
         account.setAmount(entity.getAmount());
         account.setCreated_at(entity.getCreatedAt());
+        account.setDeleted(entity.isDeleted());
         if (entity.getCustomer() != null) {
             Customer customer = new Customer.Builder().id(entity.getCustomer().getId().toString()).build();
             account.setCustomer(customer);
@@ -34,6 +35,7 @@ public class BankAccountMapper {
         entity.setAmount(account.getAmount());
         entity.setCreatedAt(account.getCreated_at());
         entity.setCustomer(CustomerMapper.toEntity(account.getCustomer()));
+        entity.setDeleted(account.isDeleted());
 
         return entity;
     }

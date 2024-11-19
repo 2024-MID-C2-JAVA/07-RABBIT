@@ -6,8 +6,8 @@ import com.bank.management.data.RegisterRequestDTO;
 import com.bank.management.data.RequestMs;
 import com.bank.management.data.ResponseMs;
 import com.bank.management.enums.DinErrorCode;
+import com.bank.management.gateway.CustomerRepository;
 import com.bank.management.usecase.appservice.CreateUserUseCase;
-import com.bank.management.usecase.appservice.UserEventCreate;
 import com.bank.management.usecase.appservice.UserEventCreatedUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @RestController
@@ -38,14 +40,16 @@ public class AuthController {
     private final CreateUserUseCase useCase;
     private final PasswordEncoder passwordEncoder;
     private final UserEventCreatedUseCase userEventCreateUseCase;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, CreateUserUseCase useCase, PasswordEncoder passwordEncoder, UserEventCreatedUseCase userEventCreateUseCase) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, CreateUserUseCase useCase, PasswordEncoder passwordEncoder, UserEventCreatedUseCase userEventCreateUseCase, CustomerRepository customerRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.useCase = useCase;
         this.passwordEncoder = passwordEncoder;
         this.userEventCreateUseCase = userEventCreateUseCase;
+        this.customerRepository = customerRepository;
     }
 
     @PostMapping("/login")
@@ -59,8 +63,16 @@ public class AuthController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String token = jwtUtil.generateToken(userDetails);
 
+            Optional<Customer> customerFound = customerRepository.findByUsername(userDetails.getUsername());
+            String customerId = "";
+            if (customerFound.isPresent()) {
+                customerId = customerFound.get().getId();
+            }
+
+
             Map<String, String> responseData = new HashMap<>();
             responseData.put("token", token);
+            responseData.put("customerId", customerId);
 
             return ResponseBuilder.buildResponse(
                     authRequest.getDinHeader(),
@@ -103,15 +115,20 @@ public class AuthController {
 
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String token = jwtUtil.generateToken(userDetails);
+            CompletableFuture<String> customerIdFuture = new CompletableFuture<>();
 
             userEventCreateUseCase.apply(new UserEventCreate.Builder()
                     .name(registerRequest.getDinBody().getName())
                     .lastname(registerRequest.getDinBody().getLastname())
                     .username(registerRequest.getDinBody().getUsername())
+                    .customerIdFuture(customerIdFuture)
                     .build());
+
+            String customerId = customerIdFuture.join();
 
             Map<String, String> responseData = new HashMap<>();
             responseData.put("token", token);
+            responseData.put("customerId", customerId);
 
 
 

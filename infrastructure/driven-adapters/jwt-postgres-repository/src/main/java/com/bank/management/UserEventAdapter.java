@@ -1,7 +1,6 @@
 package com.bank.management;
 
 import com.bank.management.gateway.UserCreateEventGateway;
-import com.bank.management.usecase.appservice.UserEventCreate;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 

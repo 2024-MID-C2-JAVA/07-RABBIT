@@ -1,6 +1,7 @@
-package com.bank.management.usecase.appservice;
+package com.bank.management;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class UserEventCreate {
 
@@ -10,6 +11,7 @@ public class UserEventCreate {
     private String username;
     private String password;
     private List<String> roles;
+    private CompletableFuture<String> customerIdFuture;
 
     private UserEventCreate(Builder builder) {
         this.username = builder.username;
@@ -18,6 +20,11 @@ public class UserEventCreate {
         this.lastname = builder.lastname;
         this.roles = builder.roles;
         this.id = builder.id;
+        this.customerIdFuture = builder.customerIdFuture;
+    }
+
+    public CompletableFuture<String> getCustomerIdFuture() {
+        return customerIdFuture;
     }
 
     public String getName() {
@@ -79,8 +86,12 @@ public class UserEventCreate {
         private String username;
         private String password;
         private List<String> roles;
+        private CompletableFuture<String> customerIdFuture;
 
-
+        public Builder customerIdFuture(CompletableFuture<String> customerIdFuture) {
+            this.customerIdFuture = customerIdFuture;
+            return this;
+        }
         public Builder id(String id) {
             this.id = id;
             return this;
