@@ -1,0 +1,98 @@
+server:
+  port: 8089
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: false
+
+
+springdoc:
+  enable-native-support: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+management:
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+spring:
+  rabbitmq:
+    addresses: amqps://zefdculu:cMyg6uKFuFDir_HidLrrnhvu7YFqpliz@fish.rmq.cloudamqp.com:5671/zefdculu
+    #    port: 5672
+#    username: zefdculu
+#    password: cMyg6uKFuFDir_HidLrrnhvu7YFqpliz
+    ssl:
+      enabled: true
+
+  data:
+    mongodb:
+      uri: mongodb+srv://pablosoria:4DUtXCgKbbA7X7Rk@cluster0.cdq7o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: banktransaction
+  datasource:
+    url: jdbc:postgresql://localhost:5432/banco
+    username: postgres
+    password: 12qwaszx
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
+
+  devtools:
+    restart:
+      enabled: true
+
+  application:
+    name: banktransaction
+
+clave:
+  secret: 9QLnICHZ0hgfJz4oKkFfGEB7YeYt4bn3m6w3LUH1XQw
+
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari: ERROR
+    feign: DEBUG
+
+jwt:
+  expirationDateInMs: '78000000'
+  secret: 'QWASZXERDFCVTYGHBNYUHJNMIOKLWAESRASFACASDFACASDFASFASFDAFASFASDAADSCSDFADCVSGCFVADXCOPINNOQWERTYU'
+
+
+general:
+  config:
+    rabbitmq:
+      exchange: "bankExchange"
+      queue: "bankQueue"
+      routingKey: "bankRoutingKey"
+    constans:
+      id: "bancoAPIJWT"
+      authorities: "authorities"
+      BEARER: "Bearer "
+      AUTHORIZATION: "Authorization"
+      headersJWTPartnerLoginID: "identificationNumber"
+      headersJWTPartnerLoginDevice: "identificationDevice"
+      headersJWTPartnerLoginType: "identificationType"
+      SUCCESS: "success"
+      OK: 0
+      ERROR: 500
+
+
+URL:
+  OpenEndpointsRegex: >
+    "/utils/generate",
+      
+      

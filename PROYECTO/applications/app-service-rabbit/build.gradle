@@ -1,0 +1,19 @@
+dependencies {
+    implementation project(':use-cases')
+//    implementation project(':mysql-repository')
+    implementation project(':mongo-repository')
+    implementation project(':web-test-rabbit')
+    implementation project(':rabbit-repository')
+
+    implementation('org.springframework.boot:spring-boot-starter')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
+
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+}
