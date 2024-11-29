@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':shared-domain-use-cases')
+    implementation project(':cuentaflex-domain-use-cases')
+    implementation project(':cuentaflex-infrastructure-driven-adapters-mongo-log-repository')
+    implementation project(':cuentaflex-infrastructure-entry-points-mq-listener')
+
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-amqp"
+}

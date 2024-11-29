@@ -1,14 +1,53 @@
-rootProject.name = 'ArquitecturaHexagonal'
+include ':shared-domain-models'
+findProject(':shared-domain-models').projectDir = file("./shared/domain/models")
 
-include ':app-service'
-include ':model'
-include ':use-cases'
-include ':postgres-repository'
-include ':web'
+include ':shared-domain-use-cases'
+findProject(':shared-domain-use-cases').projectDir = file("./shared/domain/use-cases")
 
-findProject(':app-service').projectDir = file('./applications/app-service')
-findProject(':model').projectDir = file('./domain/model')
-findProject(':use-cases').projectDir = file('./domain/usecases')
-findProject(':postgres-repository').projectDir = file('./infrastructure/driven-adapters/postgres-repository')
-findProject(':web').projectDir = file('./infrastructure/entry-points/web')
+include ':cuentaflex-applications-account-service'
+findProject(':cuentaflex-applications-account-service').projectDir = file("./cuentaflex/applications/account-service")
 
+include ':cuentaflex-domain-models'
+findProject(':cuentaflex-domain-models').projectDir = file("./cuentaflex/domain/models")
+
+include ':cuentaflex-domain-use-cases'
+findProject(':cuentaflex-domain-use-cases').projectDir = file("./cuentaflex/domain/use-cases")
+
+include 'cuentaflex-domain-driven-ports'
+findProject(':cuentaflex-domain-driven-ports').projectDir = file("./cuentaflex/domain/driven-ports")
+
+include ':cuentaflex-infrastructure-driven-adapters-mongo-repository'
+findProject(':cuentaflex-infrastructure-driven-adapters-mongo-repository').projectDir = file("./cuentaflex/infrastructure/driven-adapters/mongo-repository")
+
+include ':cuentaflex-infrastructure-driven-adapters-postgres-repository'
+findProject(':cuentaflex-infrastructure-driven-adapters-postgres-repository').projectDir = file("./cuentaflex/infrastructure/driven-adapters/postgres-repository")
+
+include ':cuentaflex-infrastructure-entry-points-rest'
+findProject(':cuentaflex-infrastructure-entry-points-rest').projectDir = file("./cuentaflex/infrastructure/entry-points/rest")
+
+include ':core-cryptography-aes'
+findProject(':core-cryptography-aes').projectDir = file("./core/cryptography/aes")
+
+include ':shared-infrastructure-entry-points-din'
+findProject(':shared-infrastructure-entry-points-din').projectDir = file("./shared/infrastructure/entry-points/din")
+
+include ':core-security-authentication'
+findProject(':core-security-authentication').projectDir = file("./core/security/authentication")
+
+include ':core-security-jwt'
+findProject(':core-security-jwt').projectDir = file("./core/security/jwt")
+
+include ':cuentaflex-applications-log-service'
+findProject(':cuentaflex-applications-log-service').projectDir = file("./cuentaflex/applications/log-service")
+
+include ':cuentaflex-infrastructure-driven-adapters-info-bus'
+findProject(':cuentaflex-infrastructure-driven-adapters-info-bus').projectDir = file("./cuentaflex/infrastructure/driven-adapters/info-bus")
+
+include ':cuentaflex-infrastructure-entry-points-mq-listener'
+findProject(':cuentaflex-infrastructure-entry-points-mq-listener').projectDir = file("./cuentaflex/infrastructure/entry-points/mq-listener")
+
+include ':cuentaflex-infrastructure-driven-adapters-mongo-log-repository'
+findProject(':cuentaflex-infrastructure-driven-adapters-mongo-log-repository').projectDir = file("./cuentaflex/infrastructure/driven-adapters/mongo-log-repository")
+
+include ':cuentaflex-infrastructure-driven-adapters-postgres-log-repository'
+findProject(':cuentaflex-infrastructure-driven-adapters-postgres-log-repository').projectDir = file("./cuentaflex/infrastructure/driven-adapters/postgres-log-repository")

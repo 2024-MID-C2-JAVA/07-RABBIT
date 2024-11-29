@@ -1,0 +1,7 @@
+dependencies {
+    implementation project(':core-cryptography-aes')
+    implementation project(':shared-domain-models')
+    implementation project(':cuentaflex-domain-models')
+    implementation project(':cuentaflex-domain-driven-ports')
+    implementation project(':shared-domain-use-cases')
+}
